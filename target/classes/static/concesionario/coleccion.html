@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colección - AutoElite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/coleccion.css">
+    <base target="_blank">
+<base target="_blank">
+</head>
+<body>
+
+    <!-- ═══ NAVBAR ═══ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-nav">
+                <span class="logo-light">AUTO</span><span class="logo-gold">ELITE</span>
+            </a>
+            <div class="nav-center">
+                <a href="index.html"     class="nav-link">Inicio</a>
+                <a href="coleccion.html" class="nav-link">Colección</a>
+                <a href="index.html#ofertas"  class="nav-link">Ofertas</a>
+                <a href="index.html#contacto" class="nav-link">Contacto</a>
+            </div>
+            <div class="nav-actions">
+                <a href="login.html" class="btn-nav-outline" id="linkLogin">Acceder</a>
+                <button class="btn-icon" id="btnLogout" style="display:none;" onclick="logout()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" y1="12" x2="9" y2="12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ═══ PAGE HEADER ═══ -->
+    <section class="page-header">
+        <div class="container">
+            <span class="page-tag">Nuestra Selección</span>
+            <h1 class="page-title">Colección Exclusiva</h1>
+            <p class="page-desc">Descubre nuestra curated selection de vehículos de lujo, cada uno elegido por su excelencia y prestigio.</p>
+        </div>
+    </section>
+
+    <!-- ═══ FILTROS ═══ -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filters-card">
+
+                <div class="filters-header">
+                    <h3>Filtrar Colección</h3>
+                    <button class="btn-reset" onclick="resetFiltros()">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                            <path d="M3 3v5h5"/>
+                        </svg>
+                        Restablecer
+                    </button>
+                </div>
+
+                <!-- Fila 1: Marca + Tipo -->
+                <div class="filters-row">
+                    <!-- Marca: se puebla dinámicamente desde la API -->
+                    <div class="filter-item">
+                        <label for="filtroMarca">Marca</label>
+                        <select id="filtroMarca">
+                            <option value="">Todas las marcas</option>
+                        </select>
+                    </div>
+                    <!-- Tipo: se puebla dinámicamente desde la API -->
+                    <div class="filter-item">
+                        <label for="filtroTipo">Tipo de vehículo</label>
+                        <select id="filtroTipo">
+                            <option value="">Todos los tipos</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Fila 2: Precios -->
+                <div class="filters-row">
+                    <div class="filter-item">
+                        <label for="filtroPrecioMin">
+                            Precio mínimo
+                            <span class="filter-value-badge" id="precioMinLabel">€ 0</span>
+                        </label>
+                        <div class="range-wrap">
+                            <span class="range-limit">€0</span>
+                            <input type="range" id="filtroPrecioMin"
+                                min="0" max="10000000" step="100000" value="0">
+                            <span class="range-limit">€10M</span>
+                        </div>
+                    </div>
+                    <div class="filter-item">
+                        <label for="filtroPrecioMax">
+                            Precio máximo
+                            <span class="filter-value-badge" id="precioMaxLabel">€ 10.000.000</span>
+                        </label>
+                        <div class="range-wrap">
+                            <span class="range-limit">€0</span>
+                            <input type="range" id="filtroPrecioMax"
+                                min="0" max="10000000" step="100000" value="10000000">
+                            <span class="range-limit">€10M</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fila 3: Años + Buscar -->
+                <div class="filters-row filters-row--bottom">
+                    <div class="filter-item">
+                        <label for="filtroAnioMin">Año desde</label>
+                        <select id="filtroAnioMin">
+                            <option value="">Desde</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label for="filtroAnioMax">Año hasta</label>
+                        <select id="filtroAnioMax">
+                            <option value="">Hasta</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                        </select>
+                    </div>
+                    <div class="filter-item filter-item--action">
+                        <label>&nbsp;</label>
+                        <button class="btn-search-main" onclick="aplicarFiltrosColeccion()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ RESULTADOS INFO ═══ -->
+    <section class="results-info">
+        <div class="container results-bar">
+            <span class="results-count" id="resultsCount">Cargando vehículos...</span>
+            <div class="active-filters" id="activeFilters"></div>
+        </div>
+    </section>
+
+    <!-- ═══ CATÁLOGO ═══ -->
+    <section class="catalogo-full">
+        <div class="container">
+            <div class="vehiculos-grid-premium" id="vehiculosGrid">
+                <!-- Skeleton loader -->
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+            </div>
+            <div class="no-results" id="noResults" style="display:none;">
+                <div class="no-results-icon">🔍</div>
+                <h3>Sin resultados</h3>
+                <p>Prueba a ajustar los filtros de búsqueda</p>
+                <button class="btn-outline-dark" onclick="resetFiltros()">Ver todos los vehículos</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer-premium">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="footer-logo">AUTO<span class="gold">ELITE</span></a>
+                    <p>Excellence in motion. Concesionario de vehículos de lujo desde 1995.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="coleccion.html">Colección</a></li>
+                        <li><a href="login.html">Acceder</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contacto</h4>
+                    <p>Madrid, España</p>
+                    <p>+34 91 123 45 67</p>
+                    <p>info@autoelite.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 AutoElite. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/coleccion.js"></script>
+</body>
+</html>
