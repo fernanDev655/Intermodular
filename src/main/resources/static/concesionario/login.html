@@ -1,0 +1,173 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acceso - AutoElite</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="auth-page">
+    <div class="auth-bg"></div>
+
+    <div class="auth-wrapper">
+      <a href="index.html" class="auth-logo">
+        <span class="logo-main">AUTO</span>
+        <span class="logo-accent">ELITE</span>
+      </a>
+
+      <div class="auth-card">
+        <!-- Sección Código Especial -->
+        <div class="code-section">
+          <span class="section-label">Zona de Trabajadores</span>
+          <h2 class="auth-title">Acceso Especial</h2>
+          <p class="auth-subtitle">Introduce el código de acceso corporativo</p>
+
+          <div class="code-input-wrapper">
+            <input
+              type="text"
+              id="codigoAcceso"
+              placeholder="••••"
+              maxlength="4"
+              autocomplete="off"
+            />
+            <button onclick="verificarCodigo()" class="btn-verify">
+              <span>Verificar</span>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </button>
+          </div>
+          <p id="mensajeCodigo" class="code-message"></p>
+        </div>
+
+        <div class="divider-elegant">
+          <span>o</span>
+        </div>
+
+        <!-- Sección Login Normal -->
+        <form id="loginForm" onsubmit="handleLogin(event)" class="login-form">
+          <div id="loginProgress">
+            <div id="loginProgressBar"></div>
+          </div>
+          <span class="section-label">Clientes</span>
+
+          <div class="input-group">
+            <label for="loginEmail">Correo Electrónico</label>
+            <div class="input-wrapper">
+              <svg
+                class="input-icon"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                ></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <input
+                type="email"
+                id="loginEmail"
+                placeholder="tu@email.com"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="loginPassword">Contraseña</label>
+            <div class="input-wrapper">
+              <svg
+                class="input-icon"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <input
+                type="password"
+                id="loginPassword"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="input-group" id="rolSelector" style="display: none">
+            <label for="loginRol">Rol Corporativo</label>
+            <div class="input-wrapper">
+              <select id="loginRol">
+                <option value="cliente">Cliente</option>
+                <option value="comercial">Comercial</option>
+                <option value="admin">Administrador</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit">
+            <span>Iniciar Sesión</span>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </form>
+
+        <div class="auth-footer-elegant">
+          <p>¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
+        </div>
+      </div>
+    </div>
+
+    <script src="/js/auth/login.js"></script>
+    <script>
+      function verificarCodigo() {
+        const codigo = document
+          .getElementById("codigoAcceso")
+          .value.toLowerCase();
+        const mensaje = document.getElementById("mensajeCodigo");
+        const rolSelector = document.getElementById("rolSelector");
+
+        if (codigo === "icqb") {
+          mensaje.innerHTML =
+            '<span class="success-icon">✓</span> Acceso concedido. Selecciona tu rol.';
+          mensaje.className = "code-message success";
+          rolSelector.style.display = "block";
+          localStorage.setItem("accesoEspecial", "true");
+          rolSelector.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        } else {
+          mensaje.innerHTML =
+            '<span class="error-icon">✕</span> Código inválido';
+          mensaje.className = "code-message error";
+        }
+      }
+    </script>
+  </body>
+</html>
